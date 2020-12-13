@@ -42,14 +42,17 @@ app.get('/newdata', sendBack);
 */
 
 // this will store only the latest input submitted
+
 function sendSingle(req, res) {
   projectData.Date = req.body.Date;
   projectData.Temp = req.body.Temp;
-  projectData.City = req.body.Name;
   projectData.Feeling = req.body.Feeling;
 }
-function getSingle(req, res) {
-  res.send(projectData);
-}
 app.post('/', sendSingle);
+
+function getSingle(req, res) {
+  return res.send(projectData);
+}
+console.log(projectData);
+
 app.get('/newdata', getSingle);

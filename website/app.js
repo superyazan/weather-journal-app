@@ -1,5 +1,5 @@
 /* Global Variables */
-const apiKey = '&APPID=a6ef751e1554d430725c3a4eb8031c1c';
+const apiKey = '&APPID=a6ef751e1554d430725c3a4eb8031c1c&units=imperial'; // added the unit imperial
 const baseURL = 'http://api.openweathermap.org/data/2.5/weather?zip=';
 // get data function
 const getData = async (base, zipcode, api) => {
@@ -10,6 +10,26 @@ const getData = async (base, zipcode, api) => {
     return weather;
   } catch (error) {
     console.log('we found an error .. ', error);
+  }
+};
+
+// post data function
+const postData = async (url = '', data = {}) => {
+  const response = await fetch(url, {
+    method: 'POST',
+    credentials: 'same-origin',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  });
+
+  try {
+    const newData = await response.json();
+    // console.log(newData);
+    return newData;
+  } catch (error) {
+    console.log('error', error);
   }
 };
 
@@ -32,8 +52,7 @@ const updateUI = async () => {
 
     // this will get the data from the end object.
     document.getElementById('date').innerHTML = `Today is : ${finalData.Date}`;
-    document.getElementById('temp').innerHTML = `The temprature is ${finalData.Temp} Kelvin`;
-    document.getElementById('name').innerHTML = `The city is ${finalData.Name}`;
+    document.getElementById('temp').innerHTML = `The temprature is ${finalData.Temp} F`;
     document.getElementById('content').innerHTML = `You feel ${finalData.Feeling}`;
   } catch (error) {
     console.log(' this is error..', error);
@@ -47,32 +66,10 @@ function funPost() {
     .then((result) => {
       // eslint-disable-next-line no-use-before-define
       postData('/', {
-        Date: newDate, Temp: result.main.temp, Name: result.name, Feeling: feel,
+        Date: newDate, Temp: result.main.temp, Feeling: feel,
       });
-    })
-    .then(() => {
-      updateUI();
+      updateUI(); // changed the relation
     });
 }
 
 document.getElementById('generate').addEventListener('click', funPost);
-
-// post data function
-const postData = async (url = '', data = {}) => {
-  const response = await fetch(url, {
-    method: 'POST',
-    credentials: 'same-origin',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data),
-  });
-
-  try {
-    const newData = await response.json();
-    // console.log(newData);
-    return newData;
-  } catch (error) {
-    console.log('error', error);
-  }
-};
