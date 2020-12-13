@@ -1,5 +1,5 @@
 /* Global Variables */
-const apiKey = '&APPID=a6ef751e1554d430725c3a4eb8031c1c&units=imperial'; // added the unit imperial
+const apiKey = '&APPID=***&units=imperial'; // added the unit imperial
 const baseURL = 'http://api.openweathermap.org/data/2.5/weather?zip=';
 // get data function
 const getData = async (base, zipcode, api) => {
