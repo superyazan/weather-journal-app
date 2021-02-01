@@ -1,4 +1,4 @@
-// Setup empty JS object to act as endpoint for all routes
+// Setup JS object to act as endpoint for all routes
 const projectData = {};
 
 // Require Express to run server and routes
